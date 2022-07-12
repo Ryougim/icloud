@@ -1,0 +1,20 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+    session:
+      timeout: 60
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-marketing
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+jiaml:
+  ms-user:
+    url: 127.0.0.1:8080

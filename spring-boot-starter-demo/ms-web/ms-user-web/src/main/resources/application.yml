@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    session:
+      timeout: 60
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-user

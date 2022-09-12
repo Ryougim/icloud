@@ -2,6 +2,10 @@ package test;
 
 import algorithm.bus.BusStation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Test {
     public static void main(String[] args) {
 //        Map<String, String> map1 = new HashMap();
@@ -47,7 +51,21 @@ public class Test {
 //        concurrentHashMap.put("a", "1");
 //        CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList();
 //        copyOnWriteArrayList.add("1");
-        BusStation s = new BusStation("1");
-        System.out.println(s.getClass().getClassLoader());
+//        BusStation s = new BusStation("1");
+//        System.out.println(s.getClass().getClassLoader());
+
+//        System.out.println(3/10);
+
+//        ArrayList<Integer> a = new ArrayList<>();
+//        ArrayList b = a;
+//        b.add("ss");
+//        System.out.println(a.get(0));
+//
+//        Map map = new HashMap();
+//        map.values();
+
+        String a = "a";
+        int c = (int) a.toCharArray()[0];
+        System.out.println(c);
     }
 }

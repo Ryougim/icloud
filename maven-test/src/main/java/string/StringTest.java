@@ -2,11 +2,57 @@ package string;
 
 public class StringTest {
     public static void main(String[] args) {
-        String parentStr = "aaaaaaca";
+        String parentStr = "aaaaaacbda";
         String childStr = "aaaac";
-//        int index = bruteForceCompare(parentStr, childStr);
-        int index = KMPCompare(parentStr, childStr);
+        int index = bruteForceCompare(parentStr, childStr);
+//        int index = KMPCompare(parentStr, childStr);
         System.out.println(index);
+
+        String s = "abacbbca";
+        System.out.println(getMaxSubString(s));
+    }
+
+    /**
+     * 最大回文字串
+     * @param s
+     * @return
+     */
+    private static String getMaxSubString(String s) {
+        int start = 0;
+        int len = 0;
+        //奇数
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; i - j >= 0 && i + j < s.length(); j++) {
+                if (s.charAt(i - j) == s.charAt(i + j)) {
+                    int tempLen = 2 * j + 1;
+                    if (tempLen > len) {
+                        start = i - j;
+                        len = tempLen;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        //偶数
+        if (s.length() > 1) {
+            for (int i = 0; i < s.length() - 1; i++) {
+                if (s.charAt(i) == s.charAt(i + 1)) {
+                    for (int j = 0; i - j >= 0 && i + 1 + j < s.length(); j++) {
+                        if (s.charAt(i - j) == s.charAt(i + 1 + j)) {
+                            int tempLen = 2 * j + 2;
+                            if (tempLen > len) {
+                                start = i - j;
+                                len = tempLen;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return s.substring(start, start + len);
     }
 
     /**

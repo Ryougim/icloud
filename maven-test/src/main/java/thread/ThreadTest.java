@@ -1,6 +1,7 @@
 package thread;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public class ThreadTest {
@@ -20,6 +21,9 @@ public class ThreadTest {
         Thread t3 = new Thread(f);
         t3.start();
         System.out.println(f.get());
+
+        Callable<Object> callable = Executors.callable(new MyThread2());
+
     }
 
     private static class MyThread extends Thread {

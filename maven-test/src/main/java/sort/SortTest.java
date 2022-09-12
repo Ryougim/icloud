@@ -1,17 +1,16 @@
 package sort;
 
+import java.util.Arrays;
+
 public class SortTest {
     public static void main(String[] args) {
         //定义数组
         int[] arr = {3, 6, 2, 9, 5, 4, 1, 5, 8, 7, 0};
         //排序
-        bubbleSort(arr);
+//        bubbleSort(arr);
 //        selectionSort(arr);
 //        insertionSort(arr);
-        for (int a : arr) {
-            System.out.print(a + " ");
-        }
-        System.out.println();
+        quickSort(arr, 0, arr.length -1);
         //查找指定元素下标
         int tatget = 5;
         int index = binarySearch(arr, tatget);
@@ -25,12 +24,16 @@ public class SortTest {
      */
     private static void bubbleSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
+            boolean isSwapped = false; //表示在每一轮冒泡中是否有交换元素位置
             for (int j = 0; j < arr.length - 1 - i; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+                    swap(arr, j, j + 1);
+                    isSwapped = true;
                 }
+            }
+            System.out.println(Arrays.toString(arr));
+            if (!isSwapped) {
+                break;
             }
         }
     }
@@ -41,14 +44,17 @@ public class SortTest {
      * @param arr
      */
     private static void selectionSort(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] > arr[j]) {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
+        for (int i = 0; i < arr.length - 1; i++) {
+            int s = i; //s代表最小值元素的索引
+            for (int j = s + 1; j < arr.length; j++) {
+                if (arr[s] > arr[j]) {
+                    s = j;
                 }
             }
+            if (s != i) {
+                swap(arr, i, s);
+            }
+            System.out.println(Arrays.toString(arr));
         }
     }
 
@@ -78,12 +84,47 @@ public class SortTest {
     }
 
     /**
-     * 快速排序法
+     * 快速排序法  双边循环快排
      *
      * @param arr
+     * @param l
+     * @param h
      */
-    private static void quickSort(int[] arr) {
+    private static void quickSort(int[] arr, int l, int h) {
+        if (l >= h) {
+            return;
+        }
+        int p = partition(arr, l, h);
+        quickSort(arr, l, p - 1); //左边分区
+        quickSort(arr, p + 1, h); //右边分区
+    }
 
+    /**
+     * 分区
+     *
+     * @param arr
+     * @param l
+     * @param h
+     * @return 返回新的基准点索引
+     */
+    private static int partition(int[] arr, int l, int h) {
+        int pv = arr[l]; //基准点元素
+        int i = l; //i从左向右
+        int j = h; //j从右向左
+        while (i < j) {
+            // j从右向左找比基准点小的元素
+            while (i < j && arr[j] > pv) {
+                j--;
+            }
+            // i从左向右找比基准点大的元素
+            while (i < j && arr[i] <= pv) {
+                i++;
+            }
+            swap(arr, i, j);
+        }
+        swap(arr, l, j);
+        System.out.println(Arrays.toString(arr));
+        return j;
     }
 
     /**
@@ -107,5 +148,18 @@ public class SortTest {
             }
         }
         return -1;
+    }
+
+    /**
+     * 交换数组中两个元素
+     *
+     * @param arr
+     * @param i
+     * @param j
+     */
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
